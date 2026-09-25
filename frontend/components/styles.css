@@ -1,0 +1,430 @@
+/* Diseño redondeado y colores pasteles (ver specs/ui-design-specs.md). Sin modo oscuro. */
+:root {
+  --fondo: #f7f5fb;
+  --superficie: #ffffff;
+  --texto: #3a3550;
+  --texto-suave: #6f6a85;
+  --borde: #e4e0ef;
+  --primario: #9d8cd9;
+  --primario-oscuro: #7a68c0;
+  --error-fondo: #fde4e4;
+  --error-texto: #a33b3b;
+  --ok-fondo: #dff5e6;
+  --ok-texto: #2f7a48;
+
+  /* Afluencia */
+  --baja: #d8f3e3;
+  --media: #fdf1c7;
+  --alta: #fbd9d9;
+
+  /* Estado del clima */
+  --soleado: #fff1c9;
+  --nublado: #e6e9f0;
+  --lluvia: #d6e8fb;
+
+  /* Gráfico */
+  --serie-reales: #7a68c0;
+  --serie-predichas: #e08a8a;
+
+  --radio: 18px;
+  --radio-chico: 12px;
+  --sombra: 0 4px 16px rgba(80, 64, 140, 0.08);
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.5;
+}
+
+h1,
+h2 {
+  margin: 0 0 0.5rem;
+  line-height: 1.2;
+}
+
+.pagina {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+}
+
+.pagina-centrada {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+.cabecera {
+  margin-bottom: 24px;
+}
+
+.cabecera-panel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.subtitulo,
+.nota {
+  color: var(--texto-suave);
+  margin: 0;
+}
+
+.tarjeta {
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+  padding: 20px;
+}
+
+/* Formularios */
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+input,
+select {
+  font: inherit;
+  padding: 10px 12px;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio-chico);
+  background: #fff;
+  color: var(--texto);
+  min-width: 0;
+}
+
+input:focus,
+select:focus {
+  outline: 2px solid var(--primario);
+  outline-offset: 1px;
+}
+
+.boton {
+  font: inherit;
+  font-weight: 600;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 999px;
+  background: var(--primario);
+  color: #fff;
+  cursor: pointer;
+}
+
+.boton:hover:not(:disabled) {
+  background: var(--primario-oscuro);
+}
+
+.boton:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.boton-secundario {
+  background: var(--borde);
+  color: var(--texto);
+}
+
+.boton-secundario:hover:not(:disabled) {
+  background: #d6d0e8;
+}
+
+.formulario-fila {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+  margin: 12px 0;
+}
+
+.mensaje-error {
+  background: var(--error-fondo);
+  color: var(--error-texto);
+  border-radius: var(--radio-chico);
+  padding: 10px 14px;
+  margin: 8px 0;
+}
+
+.mensaje-ok {
+  background: var(--ok-fondo);
+  color: var(--ok-texto);
+  border-radius: var(--radio-chico);
+  padding: 10px 14px;
+  margin: 8px 0;
+}
+
+.enlace-discreto {
+  color: var(--texto-suave);
+  font-size: 0.9rem;
+}
+
+/* Login */
+.tarjeta-login {
+  width: 100%;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Vista pública */
+.grilla-predicciones {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.tarjeta-prediccion {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.prediccion-fecha {
+  font-size: 1.05rem;
+  text-transform: capitalize;
+}
+
+.prediccion-visitantes strong {
+  font-size: 2.4rem;
+}
+
+.prediccion-visitantes {
+  margin: 0;
+}
+
+.etiqueta-nivel {
+  align-self: flex-start;
+  margin: 0;
+  padding: 2px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
+}
+
+.afluencia-baja {
+  background: var(--baja);
+}
+
+.afluencia-media {
+  background: var(--media);
+}
+
+.afluencia-alta {
+  background: var(--alta);
+}
+
+.prediccion-clima,
+.datos-clima,
+.datos-modelo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 8px 16px;
+  margin: 8px 0 0;
+}
+
+dt {
+  color: var(--texto-suave);
+  font-size: 0.85rem;
+}
+
+dd {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.pie {
+  margin-top: 32px;
+  text-align: center;
+}
+
+/* Panel */
+.menu-panel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.menu-item {
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  color: var(--texto);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.menu-item.active {
+  background: var(--primario);
+  border-color: var(--primario);
+  color: #fff;
+}
+
+.seccion-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.layout-consulta {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 20px;
+  align-items: start;
+}
+
+.columna-principal {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.bloque-consulta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+.bloque-consulta label {
+  flex: 1 1 220px;
+}
+
+.tarjeta-resultado {
+  min-height: 150px;
+}
+
+.clima-soleado {
+  background: var(--soleado);
+}
+
+.clima-nublado {
+  background: var(--nublado);
+}
+
+.clima-lluvia {
+  background: var(--lluvia);
+}
+
+.sidebar-recientes {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sidebar-recientes h2 {
+  font-size: 1.05rem;
+}
+
+.tarjeta-reciente {
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  cursor: pointer;
+}
+
+.tarjeta-reciente:hover {
+  border-color: var(--primario);
+}
+
+.tarjeta-reciente span {
+  color: var(--texto-suave);
+  font-size: 0.85rem;
+}
+
+.lista-feriados {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lista-feriados li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio-chico);
+}
+
+.lista-feriados strong {
+  text-transform: capitalize;
+}
+
+.selector-anio {
+  max-width: 140px;
+}
+
+.grafico {
+  width: 100%;
+  min-width: 0;
+}
+
+/* Spinner */
+.spinner-contenedor {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--texto-suave);
+  padding: 12px 0;
+}
+
+.spinner {
+  width: 22px;
+  height: 22px;
+  border: 3px solid var(--borde);
+  border-top-color: var(--primario);
+  border-radius: 50%;
+  animation: girar 0.8s linear infinite;
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Celular (RNF-06) */
+@media (max-width: 720px) {
+  .layout-consulta {
+    grid-template-columns: 1fr;
+  }
+
+  .grilla-predicciones {
+    grid-template-columns: 1fr;
+  }
+
+  .boton {
+    width: 100%;
+  }
+
+  .cabecera-panel .boton {
+    width: auto;
+  }
+}

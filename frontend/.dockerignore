@@ -1,0 +1,4 @@
+# frontend/.env NO se ignora: Vite lo necesita durante el build
+node_modules/
+dist/
+tests/

@@ -1,0 +1,15 @@
+# Variables de entorno: nunca se suben
+**/.env
+.env
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+
+# Node
+node_modules/
+dist/
