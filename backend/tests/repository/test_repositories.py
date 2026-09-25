@@ -125,5 +125,5 @@ async def test_feriados_duplicado_y_borrado_inexistente(db):
     """Caso de error del repository: feriado repetido y borrado de una fecha inexistente."""
     assert await feriados_repository.insert_feriado(date(2026, 10, 15), "Prueba") is True
     assert await feriados_repository.insert_feriado(date(2026, 10, 15), "Otra") is False
-    assert await feriados_repository.delete_feriado(date(2026, 10, 15)) is True
-    assert await feriados_repository.delete_feriado(date(2026, 10, 15)) is False
+    assert await feriados_repository.delete_feriado(date(2026, 10, 15)) == {"fecha": date(2026, 10, 15), "nombre": "Prueba"}
+    assert await feriados_repository.delete_feriado(date(2026, 10, 15)) is None

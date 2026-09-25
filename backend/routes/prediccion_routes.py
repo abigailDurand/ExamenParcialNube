@@ -1,6 +1,6 @@
 from datetime import date
 
-from fastapi import APIRouter, Depends, Query, Response, status
+from fastapi import APIRouter, Depends, Query
 
 from config import get_settings
 from models.schemas import (
@@ -52,10 +52,9 @@ async def agregar_feriado(body: FeriadoRequest, _: dict = Depends(current_user))
     return await visitas_service.agregar_feriado(body.fecha, body.nombre)
 
 
-@router.delete("/feriados/{fecha}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/feriados/{fecha}", response_model=FeriadoResponse)
 async def quitar_feriado(fecha: date, _: dict = Depends(current_user)):
-    await visitas_service.quitar_feriado(fecha)
-    return Response(status_code=status.HTTP_204_NO_CONTENT)
+    return await visitas_service.quitar_feriado(fecha)
 
 
 @router.post("/modelo/reentrenar", response_model=MetricasResponse)

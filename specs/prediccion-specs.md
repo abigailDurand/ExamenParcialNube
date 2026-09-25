@@ -175,7 +175,7 @@ Todo corre en la instancia EC2 con Docker (ver `infraestructure-specs.md`):
 | GET | /api/v1/visitas?desde=&hasta= | Historial de visitas | Administrador |
 | GET | /api/v1/feriados?anio= | Lista de feriados del año | Administrador |
 | POST | /api/v1/feriados | Agregar feriado `{ "fecha", "nombre" }`; si la fecha ya existe → 409 | Administrador |
-| DELETE | /api/v1/feriados/{fecha} | Quitar feriado; si no existe → 404 | Administrador |
+| DELETE | /api/v1/feriados/{fecha} | Quitar feriado → 200 con `{ "fecha", "nombre" }` del feriado quitado; si no existe → 404 | Administrador |
 | POST | /api/v1/modelo/reentrenar | Forzar reentrenamiento | Administrador |
 | GET | /api/v1/modelo/metricas | MAE, R² y versión del modelo actual | Administrador |
 

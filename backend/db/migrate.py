@@ -54,7 +54,8 @@ async def migrate(dsn: str | None = None) -> list[str]:
 
         app_user = os.getenv("APP_DB_USER")
         current_user = await conn.fetchval("SELECT current_user")
-        if app_user and app_user != current_user:
+        app_user_existe = app_user and await conn.fetchval("SELECT 1 FROM pg_roles WHERE rolname = $1", app_user)
+        if app_user_existe and app_user != current_user:
             ident = '"' + app_user.replace('"', '""') + '"'
             await conn.execute(
                 f"GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO {ident}"

@@ -22,8 +22,10 @@ pasado los tests.
 - Python 3.13, dependencias desde `backend/requirements.txt` y
   `backend/requirements-dev.txt` (pytest, pytest-asyncio, pytest-cov), con caché de pip
 - Servicio: contenedor `postgres:16` como BD de prueba (`clima_test`), con healthcheck
-- Variables del job: `TEST_DATABASE_URL` (armada con `TEST_POSTGRES_PASSWORD`,
-  apunta a `localhost:5432/clima_test`) y `TEST_JWT_SECRET`
+- La BD de prueba es desechable y solo existe dentro del runner: arranca con
+  `POSTGRES_HOST_AUTH_METHOD=trust`, sin contraseña
+- Variables del job: `TEST_DATABASE_URL` (`postgresql://postgres@localhost:5432/clima_test`)
+  y `TEST_JWT_SECRET` (si el secreto no existe, los tests usan su valor de prueba)
 - Aplica las migraciones sobre la BD de prueba antes de los tests
   (`python -m db.migrate` desde `backend/`, con `DATABASE_URL` apuntando a
   la BD de prueba del runner)
@@ -70,7 +72,6 @@ pasado los tests.
   solo lectura de GitHub para poder hacer `git pull`
 
 ### Para los tests
-- `TEST_POSTGRES_PASSWORD` → contraseña de la BD de prueba del runner
 - `TEST_JWT_SECRET` → secreto JWT solo para tests
 - El resto de variables de prueba (TTL, algoritmo, URLs de proveedores
   simulados, etc.) no son secretas y se definen en el `env:` del job con

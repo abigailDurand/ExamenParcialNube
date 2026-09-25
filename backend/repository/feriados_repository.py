@@ -39,7 +39,7 @@ async def insert_feriados_if_missing(feriados: list[tuple[date, str]]) -> None:
     )
 
 
-async def delete_feriado(fecha: date) -> bool:
-    """Devuelve False si la fecha no existía."""
-    result = await get_pool().execute("DELETE FROM feriados WHERE fecha = $1", fecha)
-    return result != "DELETE 0"
+async def delete_feriado(fecha: date) -> dict | None:
+    """Devuelve el feriado borrado, o None si la fecha no existía."""
+    row = await get_pool().fetchrow("DELETE FROM feriados WHERE fecha = $1 RETURNING fecha, nombre", fecha)
+    return dict(row) if row else None

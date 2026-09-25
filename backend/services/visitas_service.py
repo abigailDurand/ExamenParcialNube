@@ -26,6 +26,8 @@ async def agregar_feriado(fecha: date, nombre: str) -> dict:
     return {"fecha": fecha, "nombre": nombre}
 
 
-async def quitar_feriado(fecha: date) -> None:
-    if not await feriados_repository.delete_feriado(fecha):
+async def quitar_feriado(fecha: date) -> dict:
+    borrado = await feriados_repository.delete_feriado(fecha)
+    if borrado is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No existe un feriado en esa fecha")
+    return borrado

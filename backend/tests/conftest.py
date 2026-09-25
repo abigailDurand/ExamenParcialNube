@@ -41,7 +41,7 @@ os.environ.update(
         "OPEN_METEO_ARCHIVE_URL": "http://archive.open-meteo.test/v1/archive",
         "WEATHER_PROVIDER_TIMEOUT_SECONDS": "2",
         "WEATHER_CACHE_TTL_MINUTES": "10",
-        "JWT_SECRET": os.environ.get("TEST_JWT_SECRET", "secreto-solo-para-tests-no-usar-en-produccion"),
+        "JWT_SECRET": os.environ.get("TEST_JWT_SECRET") or "secreto-solo-para-tests-no-usar-en-produccion",
         "JWT_ALGORITHM": "HS256",
         "JWT_EXPIRATION_MINUTES": "60",
         "CORS_ORIGINS": "",
