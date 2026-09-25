@@ -1,6 +1,6 @@
 # CI/CD — orquestador (ver specs/ci-specs.md)
 # Llama a backend-ci.yml y frontend-ci.yml; luego construye las imágenes y despliega.
-# pull_request → pruebas + build | push a main → pruebas + build + despliegue en EC2
+# pull_request → pruebas + build | push a main o "Run workflow" → pruebas + build + despliegue en EC2
 # Ningún secreto se escribe aquí: todos vienen de GitHub Secrets.
 name: CI/CD
 
@@ -9,6 +9,9 @@ on:
     branches: [main]
   push:
     branches: [main]
+  # Botón "Run workflow" en la pestaña Actions: vuelve a probar y desplegar sin hacer push
+  # (por ejemplo, después de editar un .env en la EC2)
+  workflow_dispatch:
 
 # Nunca dos despliegues a la vez sobre la misma instancia
 concurrency:
@@ -44,7 +47,7 @@ jobs:
   deploy:
     name: Despliegue en EC2
     needs: docker-build
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     env:
       EC2_HOST: ${{ secrets.EC2_HOST }}

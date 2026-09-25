@@ -19,6 +19,8 @@ pasado los tests.
 ## CUÁNDO CORRE
 - `pull_request` hacia `main` → solo los jobs de prueba y build (no despliega)
 - `push` a `main` → prueba, build y, si todo pasa, despliega
+- `workflow_dispatch` (botón "Run workflow" en Actions, rama `main`) → lo mismo
+  que un push, sin cambiar código; se usa después de editar un `.env` en la EC2
 
 ## JOBS (en este orden)
 
@@ -53,7 +55,7 @@ pasado los tests.
 
 ### 4. deploy
 - Depende de: docker-build
-- Solo corre en `push` a `main` (nunca en pull requests)
+- Solo corre en `push` a `main` o `workflow_dispatch` sobre `main` (nunca en pull requests)
 - Se conecta por SSH (cliente `ssh` del runner, sin acciones de terceros) a la
   instancia EC2 y ejecuta, en `DEPLOY_PATH`:
   1. `git pull` de `main`

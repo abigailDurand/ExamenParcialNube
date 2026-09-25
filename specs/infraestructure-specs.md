@@ -62,7 +62,9 @@
 
 ### Frontend (`frontend/.env`)
 - VITE_BACKEND_URL → URL del backend que consume el frontend
-  (en producción, la URL pública de la instancia)
+  - En producción (EC2) va **vacía**: nginx sirve el frontend y la API desde
+    el mismo origen, así que las llamadas van a `/api/v1` sin conocer la IP
+  - Solo en desarrollo con `npm run dev` (puerto 5173) se usa `http://localhost:80`
 - VITE_DEMO_ADMIN_EMAIL / VITE_DEMO_ADMIN_PASSWORD → opcionales; si tienen
   valor, la vista pública y el login muestran esas credenciales de
   demostración. Quedan visibles para cualquiera: se vacían al terminar la
