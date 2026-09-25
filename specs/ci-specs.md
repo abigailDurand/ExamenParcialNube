@@ -8,8 +8,13 @@ Cada cambio que llega a `main` se prueba automáticamente y, si todo pasa,
 se despliega en la instancia EC2 de AWS. Nada llega a producción sin haber
 pasado los tests.
 
-## ARCHIVO
-- Un único workflow: `.github/workflows/ci-cd.yml`
+## ARCHIVOS
+- `.github/workflows/ci-cd.yml` → orquestador: es el único que se dispara con
+  push / pull_request; llama a los dos reutilizables, construye las imágenes
+  y despliega
+- `.github/workflows/backend-ci.yml` → reutilizable (`workflow_call`): job backend-tests
+- `.github/workflows/frontend-ci.yml` → reutilizable (`workflow_call`): job frontend-tests
+- Los secretos llegan a los reutilizables con `secrets: inherit`
 
 ## CUÁNDO CORRE
 - `pull_request` hacia `main` → solo los jobs de prueba y build (no despliega)
