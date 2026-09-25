@@ -61,6 +61,8 @@ pasado los tests.
   3. `docker compose exec -T backend python -m db.migrate` (solo aplica
      las nuevas, ver infraestructure-specs.md)
   4. `docker compose exec -T backend python -m db.seed` (idempotentes)
+  5. `docker compose exec -T backend python -m jobs.flujo_diario`: descarga el
+     pronóstico y genera las predicciones sin esperar a las 06:00
 - Nunca ejecuta `docker compose down -v`
 - Si algún paso falla, el job falla y se ve en rojo en GitHub
 

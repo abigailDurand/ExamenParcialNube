@@ -82,6 +82,8 @@ jobs:
           docker compose up -d --build
           docker compose exec -T backend python -m db.migrate
           docker compose exec -T backend python -m db.seed
+          # Pronóstico y predicciones de inmediato (sin esperar a las 06:00)
+          docker compose exec -T backend python -m jobs.flujo_diario
           # Nunca "docker compose down -v": borraría la base de datos
           SCRIPT
 

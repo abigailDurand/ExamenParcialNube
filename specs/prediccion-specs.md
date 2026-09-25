@@ -46,7 +46,7 @@ temporada de vacaciones.
 | RF-04 | El sistema genera la predicción de visitantes para los próximos 1 a 3 días (máximo configurable por `.env`). | Alta |
 | RF-05 | El usuario consulta la predicción por fecha desde el panel web o la API. | Alta |
 | RF-06 | El sistema clasifica cada día como afluencia Baja (< 30), Media (30–60) o Alta (> 60). | Media |
-| RF-07 | El sistema reentrena el modelo cada semana con los datos nuevos. | Media |
+| RF-07 | El sistema reentrena el modelo cada semana (lunes 03:00, hora de Lima) con los datos nuevos. | Media |
 | RF-08 | El sistema muestra un gráfico de visitas reales vs. predichas. | Media |
 | RF-09 | El administrador gestiona el calendario de feriados. | Baja |
 
@@ -162,7 +162,12 @@ Todo corre en la instancia EC2 con Docker (ver `infraestructure-specs.md`):
 3. Genera las predicciones del horizonte con la última versión del modelo y
    las guarda en `predicciones`.
 
-### Flujo semanal
+El flujo diario también se ejecuta una vez:
+- al desplegar (`python -m jobs.flujo_diario`, ver `ci-specs.md`), y
+- cada vez que arranca el servicio `scheduler` (si falla, solo se registra
+  en el log y se espera a las 06:00).
+
+### Flujo semanal (lunes 03:00, hora de Lima)
 - Reentrena el modelo con todos los datos (`clima` + `visitas`), guarda una
   nueva versión del `.pkl` y sus métricas.
 
