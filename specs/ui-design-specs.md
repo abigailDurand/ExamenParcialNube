@@ -22,6 +22,10 @@
 - Si la API responde 503 (modelo no entrenado): mensaje
   "Predicción no disponible por el momento"
 - Enlace discreto "Ingresar como administrador" que lleva al login
+- Debajo, el recuadro "Acceso de demostración (administrador)" con el correo y
+  la contraseña de `VITE_DEMO_ADMIN_EMAIL` / `VITE_DEMO_ADMIN_PASSWORD`
+  (para la revisión del profesor). Si esas variables están vacías, no se
+  muestra nada. El mismo recuadro aparece debajo del formulario de login.
 - Funciona en celular (RNF-06): las tarjetas se apilan en una columna
 
 ## PANEL DEL ADMINISTRADOR (solo con sesión activa)

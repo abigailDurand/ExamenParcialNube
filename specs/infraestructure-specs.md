@@ -63,6 +63,10 @@
 ### Frontend (`frontend/.env`)
 - VITE_BACKEND_URL → URL del backend que consume el frontend
   (en producción, la URL pública de la instancia)
+- VITE_DEMO_ADMIN_EMAIL / VITE_DEMO_ADMIN_PASSWORD → opcionales; si tienen
+  valor, la vista pública y el login muestran esas credenciales de
+  demostración. Quedan visibles para cualquiera: se vacían al terminar la
+  revisión (y conviene cambiar entonces la contraseña del administrador)
 
 > Vite incrusta las variables `VITE_*` en el código **al hacer el build**, no
 > al arrancar el contenedor. Por eso el Dockerfile del frontend hace

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router';
 import { getPredicciones } from '../services/prediccionService.js';
 import { formatFechaLarga } from './format.js';
+import CredencialesDemo from './CredencialesDemo.jsx';
 import Spinner from './Spinner.jsx';
 
 const MENSAJE_503 = 'Predicción no disponible por el momento';
@@ -70,6 +71,7 @@ export default function PrediccionesPublicas() {
         <Link to="/login" className="enlace-discreto">
           Ingresar como administrador
         </Link>
+        <CredencialesDemo />
       </footer>
     </main>
   );

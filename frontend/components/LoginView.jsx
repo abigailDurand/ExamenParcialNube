@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { login } from '../services/authService.js';
+import CredencialesDemo from './CredencialesDemo.jsx';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MENSAJE_CREDENCIALES = 'Correo o contraseña incorrectos';
@@ -70,6 +71,7 @@ export default function LoginView() {
         <Link to="/" className="enlace-discreto">
           ← Volver a la predicción
         </Link>
+        <CredencialesDemo />
       </form>
     </main>
   );

@@ -386,6 +386,26 @@ dd {
   min-width: 0;
 }
 
+/* Credenciales de demostración */
+.credenciales-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 16px auto 0;
+  max-width: 380px;
+  padding: 12px 16px;
+  border: 1px dashed var(--primario);
+  border-radius: var(--radio-chico);
+  background: #f3f0fc;
+  font-size: 0.9rem;
+  text-align: left;
+}
+
+.credenciales-demo code {
+  font-size: 0.95rem;
+  user-select: all;
+}
+
 /* Spinner */
 .spinner-contenedor {
   display: flex;

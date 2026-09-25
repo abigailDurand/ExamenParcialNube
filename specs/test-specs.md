@@ -199,6 +199,8 @@ Entonces el sistema responde 401
 - Panel del administrador: solo accesible con token; "Cerrar sesión" borra
   el token y vuelve a la vista pública
 - Gráfico de visitas reales vs. predichas se dibuja con los datos de la API
+- Credenciales de demostración: se muestran en la vista pública y en el login
+  solo si VITE_DEMO_ADMIN_EMAIL y VITE_DEMO_ADMIN_PASSWORD tienen valor
 
 ### Pruebas de servicios (/services)
 - Las llamadas usan VITE_BACKEND_URL del .env (no URL hardcodeada)
