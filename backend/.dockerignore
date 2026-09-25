@@ -6,3 +6,6 @@ __pycache__/
 .coverage
 htmlcov/
 modelos/
+tests/
+pytest.ini
+requirements-dev.txt

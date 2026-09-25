@@ -1,0 +1,51 @@
+# Ver specs/infraestructure-specs.md. Docker Compose v5.x (sin clave "version").
+# Ningún valor se escribe aquí: cada servicio lee su .env con env_file.
+services:
+  db:
+    image: postgres:16
+    env_file: backend/.env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # Solo corre la primera vez que se crea el volumen: usuario de la app y BD de prueba
+      - ./backend/db/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+    # Sin "ports": el 5432 nunca se publica al host
+
+  backend:
+    build: ./backend
+    env_file: backend/.env
+    volumes:
+      - modelos:/app/modelos # debe coincidir con MODELOS_DIR de backend/.env
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+    # Sin "ports": solo nginx (frontend) le habla por la red de Docker
+
+  scheduler:
+    build: ./backend
+    command: ["python", "-m", "jobs.scheduler"]
+    env_file: backend/.env
+    volumes:
+      - modelos:/app/modelos
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend # Vite lee frontend/.env durante el build
+    ports:
+      - "80:80" # único puerto publicado
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  modelos:

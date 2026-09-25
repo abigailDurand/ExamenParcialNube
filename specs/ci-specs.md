@@ -19,13 +19,16 @@ pasado los tests.
 
 ### 1. backend-tests
 - Runner: `ubuntu-latest`
-- Python 3.13, dependencias desde `backend/requirements.txt` (con caché de pip)
-- Servicio: contenedor `postgres:16` como BD de prueba, con healthcheck
+- Python 3.13, dependencias desde `backend/requirements.txt` y
+  `backend/requirements-dev.txt` (pytest, pytest-asyncio, pytest-cov), con caché de pip
+- Servicio: contenedor `postgres:16` como BD de prueba (`clima_test`), con healthcheck
+- Variables del job: `TEST_DATABASE_URL` (armada con `TEST_POSTGRES_PASSWORD`,
+  apunta a `localhost:5432/clima_test`) y `TEST_JWT_SECRET`
 - Aplica las migraciones sobre la BD de prueba antes de los tests
   (`python -m db.migrate` desde `backend/`, con `DATABASE_URL` apuntando a
   la BD de prueba del runner)
-- Ejecuta pytest con pytest-cov; **falla si la cobertura de `/services`
-  baja del 80%** (ver specs/test-specs.md)
+- Ejecuta `pytest --cov=services --cov-fail-under=80`: **falla si la cobertura
+  de `/services` baja del 80%** (ver specs/test-specs.md)
 - WeatherAPI y Open-Meteo nunca se llaman: están simulados en los tests
 
 ### 2. frontend-tests
@@ -44,7 +47,8 @@ pasado los tests.
 ### 4. deploy
 - Depende de: docker-build
 - Solo corre en `push` a `main` (nunca en pull requests)
-- Se conecta por SSH a la instancia EC2 y ejecuta, en `DEPLOY_PATH`:
+- Se conecta por SSH (cliente `ssh` del runner, sin acciones de terceros) a la
+  instancia EC2 y ejecuta, en `DEPLOY_PATH`:
   1. `git pull` de `main`
   2. `docker compose up -d --build`
   3. `docker compose exec -T backend python -m db.migrate` (solo aplica
